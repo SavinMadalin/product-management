@@ -18,25 +18,25 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<List<ProductResponse>> getProducts() {
         List<ProductResponse> products = productService.getProducts();
-        return ResponseEntity.ok();
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping("/products/{id}")
     public ResponseEntity<ProductResponse> getProductDetails(@PathVariable Long id) {
         ProductResponse product = productService.getProductDetails(id);
-        return ResponseEntity.ok();
+        return ResponseEntity.ok(product);
     }
 
     @PutMapping("/products/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
         ProductResponse product = productService.updateProduct(id, productRequest);
-        return ResponseEntity.ok();
+        return ResponseEntity.ok(product);
     }
 
     @PostMapping("/products")
     public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest productRequest) {
         ProductResponse product = productService.createProduct(productRequest);
-        return ResponseEntity.ok();
+        return ResponseEntity.status(201).body(product);
     }
 
     @DeleteMapping("/products/{id}")
