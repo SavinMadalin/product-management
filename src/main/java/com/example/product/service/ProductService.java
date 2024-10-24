@@ -2,6 +2,7 @@ package com.example.product.service;
 
 import com.example.product.model.ProductRequest;
 import com.example.product.model.ProductResponse;
+import com.example.product.model.exception.ProductNotFoundException;
 import com.example.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration;
@@ -23,11 +24,14 @@ public class ProductService {
     }
 
     public ProductResponse getProductDetails(Long id) {
-        return mapper.toResponse(productRepository.findById(id).get());
+        return mapper.toResponse(productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with id [%s] not found".formatted(id))));
     }
 
     public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
-        var entity = productRepository.findById(id).get();
+        var entity = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with id [%s] not found".formatted(id)));
+;
         var updatedEntity = productRepository.save(mapper.updateEntity(entity, productRequest, "user"));
         return mapper.toResponse(updatedEntity);
     }
@@ -38,6 +42,9 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
+        var entity = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with id [%s] not found".formatted(id)));
+
+        productRepository.delete(entity);
     }
 }
