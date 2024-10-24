@@ -2,19 +2,21 @@ package com.example.product.service;
 
 import com.example.product.model.ProductRequest;
 import com.example.product.model.ProductResponse;
+import com.example.product.model.exception.ErrorDto;
 import com.example.product.model.exception.ProductNotFoundException;
 import com.example.product.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ProductService {
 
-    private final ProductRepository productRepository;
-    private final ProductMapper mapper;
+    private ProductRepository productRepository;
+    private ProductMapper mapper;
 
     public List<ProductResponse> getProducts() {
         return productRepository.findAll().stream()

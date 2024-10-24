@@ -4,8 +4,11 @@ import com.example.product.model.exception.ErrorDto;
 import com.example.product.model.exception.GenericException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.Objects;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -29,6 +32,16 @@ public class GlobalExceptionHandler {
                 .body(ErrorDto.builder()
                         .errorCode(exception.getStatusCode().value())
                         .message(exception.getMessage())
+                        .help(DOCUMENTATION_LINK).build());
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ResponseEntity<ErrorDto> handleValidationException(MethodArgumentNotValidException exception) {
+        return ResponseEntity
+                .status(exception.getStatusCode())
+                .body(ErrorDto.builder()
+                        .errorCode(exception.getStatusCode().value())
+                        .message(Objects.requireNonNull(exception.getFieldError()).getDefaultMessage())
                         .help(DOCUMENTATION_LINK).build());
     }
 }
