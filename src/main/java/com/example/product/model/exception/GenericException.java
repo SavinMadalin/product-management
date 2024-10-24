@@ -1,6 +1,7 @@
 package com.example.product.model.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 

@@ -5,7 +5,6 @@ import com.example.product.model.ProductResponse;
 import com.example.product.model.exception.ProductNotFoundException;
 import com.example.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
