@@ -2,12 +2,10 @@ package com.example.product.service;
 
 import com.example.product.model.ProductRequest;
 import com.example.product.model.ProductResponse;
-import com.example.product.model.exception.ErrorDto;
-import com.example.product.model.exception.ProductNotFoundException;
+import com.example.product.model.exception.ResourceNotFoundException;
 import com.example.product.model.exception.ResourceAlreadyExistsException;
 import com.example.product.repository.ProductRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +29,14 @@ public class ProductService {
     public ProductResponse getProductDetails(Long id) {
         log.info("Get product details for id: [%s]".formatted(id));
         return mapper.toResponse(productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product with id [%s] not found".formatted(id))));
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id [%s] not found".formatted(id))));
     }
 
     public ProductResponse updateProduct(Long id, ProductRequest productRequest, String email) {
         log.info("Updating product with id: [%s]".formatted(id));
 
         var entity = productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product with id [%s] not found".formatted(id)));
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id [%s] not found".formatted(id)));
 
         if (!entity.getName().equals(productRequest.getName()))
             checkIfProductExists(productRequest.getName());
@@ -59,7 +57,7 @@ public class ProductService {
         log.info("Deleting product with id: [%s]".formatted(id));
 
         var entity = productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product with id [%s] not found".formatted(id)));
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id [%s] not found".formatted(id)));
 
         productRepository.delete(entity);
     }
