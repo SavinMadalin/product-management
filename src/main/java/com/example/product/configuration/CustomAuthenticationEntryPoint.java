@@ -21,7 +21,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         ErrorDto err = ErrorDto.builder()
                 .errorCode(401)
                 .message("Authentication failed")
-                .help("http://localhost:8080/swager/ui/index.html")
+                .help("http://localhost:8080/swager-ui/index.html")
                 .build();
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

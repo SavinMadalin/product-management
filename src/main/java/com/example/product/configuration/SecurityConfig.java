@@ -31,6 +31,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(getOpenedResources()).permitAll()
                         .requestMatchers(HttpMethod.POST,"/customers/register").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(basic -> basic.authenticationEntryPoint(authenticationEntryPoint))
@@ -48,5 +49,15 @@ public class SecurityConfig {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         return new ProviderManager(daoAuthenticationProvider);
+    }
+
+    private String[] getOpenedResources() {
+        return new String[]{
+                "/swagger-ui/**",
+                "/swagger-resources",
+                "/swagger-resources/**",
+                "/v3/api-docs",
+                "/v3/api-docs/**"
+        };
     }
 }

@@ -14,7 +14,7 @@ import java.util.Objects;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private final String DOCUMENTATION_LINK = "http://localhost:8080/swager/ui/index.html";
+    private final String DOCUMENTATION_LINK = "http://localhost:8080/swager/ui-index.html";
 
     @ExceptionHandler({RuntimeException.class})
     public ResponseEntity<ErrorDto> handleRuntimeException(RuntimeException exception) {
