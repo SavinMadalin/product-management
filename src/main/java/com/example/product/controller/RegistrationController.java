@@ -1,6 +1,7 @@
 package com.example.product.controller;
 
-import com.example.product.model.Customer;
+import com.example.product.model.CustomerDetails;
+import com.example.product.model.CustomerEntity;
 import com.example.product.model.CustomerRequest;
 import com.example.product.service.RegistrationService;
 import jakarta.validation.Valid;
@@ -17,7 +18,7 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @PostMapping("/customers/register")
-    public ResponseEntity<Customer> registerCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
+    public ResponseEntity<CustomerDetails> registerCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
         return ResponseEntity.status(201)
                 .body(registrationService.registerCustomer(customerRequest));
     }

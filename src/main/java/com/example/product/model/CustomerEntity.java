@@ -2,7 +2,6 @@ package com.example.product.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "customers")
 @NoArgsConstructor
-public class Customer implements UserDetails {
+public class CustomerEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

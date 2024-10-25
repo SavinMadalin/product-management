@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 public record CustomerRequest(
         @NotEmpty(message = "[email] parameter must not be null")
-        @Email
+        @Email(message = "Incorrect format of the email address")
         String email,
         @NotEmpty(message = "[password] parameter must not be null")
         String password,
