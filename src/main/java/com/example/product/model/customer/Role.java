@@ -1,13 +1,9 @@
-package com.example.product.model;
+package com.example.product.model.customer;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
-
-import java.util.List;
 
 @Data
 @Entity

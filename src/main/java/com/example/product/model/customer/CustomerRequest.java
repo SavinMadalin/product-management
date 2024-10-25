@@ -1,4 +1,4 @@
-package com.example.product.model;
+package com.example.product.model.customer;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -9,6 +9,6 @@ public record CustomerRequest(
         String email,
         @NotEmpty(message = "[password] parameter must not be null")
         String password,
-        boolean isUserAdmin
+        boolean isAdmin
 ) {
 }

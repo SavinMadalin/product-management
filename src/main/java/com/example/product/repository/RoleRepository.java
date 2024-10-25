@@ -1,6 +1,6 @@
 package com.example.product.repository;
 
-import com.example.product.model.Role;
+import com.example.product.model.customer.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

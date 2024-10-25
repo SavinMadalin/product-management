@@ -1,9 +1,9 @@
 package com.example.product.service;
 
-import com.example.product.model.CustomerEntity;
-import com.example.product.model.CustomerDetails;
-import com.example.product.model.CustomerRequest;
-import com.example.product.model.Role;
+import com.example.product.model.customer.CustomerEntity;
+import com.example.product.model.customer.CustomerDetails;
+import com.example.product.model.customer.CustomerRequest;
+import com.example.product.model.customer.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

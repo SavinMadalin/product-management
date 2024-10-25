@@ -1,9 +1,8 @@
 package com.example.product.service;
 
-import com.example.product.model.CustomerDetails;
-import com.example.product.model.CustomerEntity;
-import com.example.product.model.CustomerRequest;
-import com.example.product.model.Role;
+import com.example.product.model.customer.CustomerDetails;
+import com.example.product.model.customer.CustomerRequest;
+import com.example.product.model.customer.Role;
 import com.example.product.model.exception.ResourceAlreadyExistsException;
 import com.example.product.repository.CustomerRepository;
 import com.example.product.repository.RoleRepository;
@@ -30,7 +29,7 @@ public class RegistrationService {
                     throw new ResourceAlreadyExistsException(message);
                 });
 
-        String role = customerRequest.isUserAdmin() ? "ROLE_ADMIN" : "ROLE_USER";
+        String role = customerRequest.isAdmin() ? "ROLE_ADMIN" : "ROLE_USER";
         Role userRole = roleRepository.findByAuthority(role)
                 .orElse(roleRepository.save(securityMapper.toRole(role)));
 
