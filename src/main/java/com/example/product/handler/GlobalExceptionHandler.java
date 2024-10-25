@@ -4,9 +4,11 @@ import com.example.product.model.exception.ErrorDto;
 import com.example.product.model.exception.GenericException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import java.util.Objects;
 
 @ControllerAdvice
@@ -41,6 +43,16 @@ public class GlobalExceptionHandler {
                 .body(ErrorDto.builder()
                         .errorCode(exception.getStatusCode().value())
                         .message(Objects.requireNonNull(exception.getFieldError()).getDefaultMessage())
+                        .help(DOCUMENTATION_LINK).build());
+    }
+
+    @ExceptionHandler({AuthorizationDeniedException.class})
+    public ResponseEntity<ErrorDto> handleValidationException() {
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(ErrorDto.builder()
+                        .errorCode(403)
+                        .message("You do not have permission to access this resource")
                         .help(DOCUMENTATION_LINK).build());
     }
 }
