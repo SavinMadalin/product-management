@@ -2,11 +2,13 @@ package com.example.product.controller;
 
 import com.example.product.model.ProductRequest;
 import com.example.product.model.ProductResponse;
+import com.example.product.model.customer.CustomerEntity;
 import com.example.product.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,15 +35,16 @@ public class ProductController {
 
     @PutMapping("/products/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequest productRequest) {
-        ProductResponse product = productService.updateProduct(id, productRequest);
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequest productRequest,
+                                                         @AuthenticationPrincipal CustomerEntity customer) {
+        ProductResponse product = productService.updateProduct(id, productRequest, customer.getEmail());
         return ResponseEntity.ok(product);
     }
 
     @PostMapping("/products")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest productRequest) {
-        ProductResponse product = productService.createProduct(productRequest);
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest productRequest, @AuthenticationPrincipal CustomerEntity customer) {
+        ProductResponse product = productService.createProduct(productRequest, customer.getEmail());
         return ResponseEntity.status(201).body(product);
     }
 

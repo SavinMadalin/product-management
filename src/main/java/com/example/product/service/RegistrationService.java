@@ -29,6 +29,8 @@ public class RegistrationService {
                     throw new ResourceAlreadyExistsException(message);
                 });
 
+        log.info("Register user with email: [%s]".formatted(customerRequest.email()));
+
         String role = customerRequest.isAdmin() ? "ROLE_ADMIN" : "ROLE_USER";
         Role userRole = roleRepository.findByAuthority(role)
                 .orElse(roleRepository.save(securityMapper.toRole(role)));
